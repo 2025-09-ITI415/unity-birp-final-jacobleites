@@ -7,13 +7,17 @@ public class PlayerCollector : MonoBehaviour
     public int score = 0;
     public int totalItems;
     public GameObject winCanvas; // Drag your UI Canvas here
+    public GameObject objectiveCanvas;
     public Text statsText; // Drag your Text element here
+    public Text objective;
 
     void Start()
     {
         // Calculate total items automatically based on Tag
         totalItems = GameObject.FindGameObjectsWithTag("Collectible").Length;
+        objectiveCanvas.SetActive(true); // Show Objective
         winCanvas.SetActive(false); // Hide stats screen at start
+        objective.text = "Follow the stone path and collect all 4 coins";
     }
 
     void OnTriggerEnter(Collider other)
@@ -39,6 +43,7 @@ public class PlayerCollector : MonoBehaviour
 
     void EndLevel()
     {
+        objectiveCanvas.SetActive(false); // Remove objective
         winCanvas.SetActive(true);
         // Display Stats
         statsText.text = "Run Complete!\nItems Collected: " + score + "/" + totalItems;
